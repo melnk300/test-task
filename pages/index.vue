@@ -1,26 +1,21 @@
 <script setup lang="ts">
-import axios from 'axios';
-import { onMounted } from 'vue'
-
 import * as ApiTypes from '@/types/api';
-import { stat } from 'fs';
 
 const page = ref<number>(1)
 const status = ref<ApiTypes.status | null>(null)
 const name = ref<string | null>(null)
 
 let characters = ref<ApiTypes.ICharacterResults[]>([]);
-useApi('character')
-onMounted(async () => {
-    let response = await useApi('character')
+
+useApi('character', 1).then(response => {
+    characters.value = response.results
+})
+
+useApi('character', 2).then(response => {
     characters.value.push(...response.results)
-    response = await useApi('character', 2)
-    characters.value.push(...response.results)
-    page.value = 2
 })
 
 window.onscroll = () => {
-    
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         page.value++
         useApi('character', page.value, {status: status.value, name: name.value}).then(response => {
@@ -53,7 +48,7 @@ watch(name, () => {
             <div class="content">
                 <h2>All characters</h2>
                 <div class="hero_cards">
-                    <HeroCard v-for="character in characters" :key="character.id" :name="character.name" :id="character.id" :image="character.image" :species="character.species" :episodes-names="character.episodesNames" />
+                    <HeroCard v-for="character in characters" :key="character.id" :name="character.name" :id="character.id" :image="character.image" :species="character.species" :episode="character.episode" />
                 </div>
             </div>
             <div class="sidebar">

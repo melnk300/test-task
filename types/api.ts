@@ -55,5 +55,7 @@ export interface ICharacter {
   results: ICharacterResults[];
 }
 
-export type entity = 'episode' | 'character';
+export type id = number | string;
+
+export type entity = 'episode' | 'character' | `episode/${id}` | `character/${id}`;
 export type status = 'alive' | 'dead' | 'unknown';
