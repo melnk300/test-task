@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import * as ApiTypes from '@/types/api';
+import { storeToRefs } from 'pinia';
+
+const filterStore = useFilterStore()
+const { status, name } = storeToRefs(filterStore)
 
 const page = ref<number>(1)
-const status = ref<ApiTypes.status | null>(null)
-const name = ref<string | null>(null)
 
 let characters = ref<ApiTypes.ICharacterResults[]>([]);
 
-useApi('character', 1).then(response => {
+useApi('character', 1, {status: status.value, name: name.value}).then(response => {
     characters.value = response.results
 })
 
-useApi('character', 2).then(response => {
+useApi('character', 2, {status: status.value, name: name.value}).then(response => {
     characters.value.push(...response.results)
 })
 
@@ -43,35 +45,33 @@ watch(name, () => {
 </script>
 
 <template>
-    <NuxtLayout>
-        <div class="page_container">
-            <div class="content">
-                <h2>All characters</h2>
-                <div class="hero_cards">
-                    <HeroCard v-for="character in characters" :key="character.id" :name="character.name" :id="character.id" :image="character.image" :species="character.species" :episode="character.episode" />
-                </div>
-            </div>
-            <div class="sidebar">
-                <h2>FIlter</h2>
-                <form>
-                    <label for="status">
-                        Status
-                        <select name="status" id="status" v-model="status" placeholder="Charecter status">
-                            <option value="" default>All</option>
-                            <option value="alive">Alive</option>
-                            <option value="dead">Dead</option>
-                            <option value="unknown">Unknown</option>
-                        </select>
-                    </label>
-                    <label for="name">
-                        Name
-                        <input type="text" name="name" id="name" v-model="name" placeholder="Character name">
-                    </label>
-                    
-                </form>
+    <div class="page_container">
+        <div class="content">
+            <h2>All characters</h2>
+            <div class="hero_cards">
+                <HeroCard v-for="character in characters" :key="character.id" :name="character.name" :id="character.id" :image="character.image" :species="character.species" :episode="character.episode" />
             </div>
         </div>
-    </NuxtLayout>
+        <div class="sidebar">
+            <h2>FIlter</h2>
+            <form>
+                <label for="status">
+                    Status
+                    <select name="status" id="status" v-model="status" placeholder="Charecter status">
+                        <option value="" default>All</option>
+                        <option value="alive">Alive</option>
+                        <option value="dead">Dead</option>
+                        <option value="unknown">Unknown</option>
+                    </select>
+                </label>
+                <label for="name">
+                    Name
+                    <input type="text" name="name" id="name" v-model="name" placeholder="Character name">
+                </label>
+                
+            </form>
+        </div>
+    </div>
 </template>
 
 <style scoped lang="less">

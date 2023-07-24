@@ -29,7 +29,9 @@ props.episode.forEach(async episode => {
             <div class="hero--info_name"><NuxtLink :to="`characters/${props.id}`">{{ props.name }}</NuxtLink></div>
             <div class="hero--info_species">{{ props.species }}</div>
             <div class="hero--info_episodes">
-                {{ episodes.slice(0, 5).map(episode => episode.episode).join(', ') }}
+                <div class="hero--info_episode" v-for="episode in episodes.slice(0, 5)">
+                    <NuxtLink :to="`/episodes/${episode.id}`">{{ episode.episode }}</NuxtLink>
+                </div>
             </div>
         </div>
     </div>
@@ -56,6 +58,11 @@ props.episode.forEach(async episode => {
 
         .hero--info_species {
             font-weight: bold;
+        }
+
+        .hero--info_episodes {
+            display: flex;
+            gap: 5px;
         }
     }
 </style>
