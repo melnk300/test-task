@@ -9,7 +9,7 @@
     --primary: #333;
     --text: #f1f1f1;
     --accent: #00C155;
-    --lighter: #777;
+    --lighter: #555;
   }
 
   body {
