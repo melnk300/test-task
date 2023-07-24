@@ -9,6 +9,7 @@
         <ul class="navigation">
           <li class="logo"><NuxtLink to="/">**ck and Morty</NuxtLink></li>
           <li><NuxtLink to="/">characters</NuxtLink></li>
+          <li><NuxtLink to="/episodes/1">episodes</NuxtLink></li>
         </ul>
       </nav>
     </header>

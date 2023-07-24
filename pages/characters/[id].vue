@@ -22,58 +22,56 @@ character?.episode.forEach(async episode => {
 </script>
 
 <template>
-    <NuxtLayout>
-        <div class="page_container">
-            <div class="first_page">
-                <div class="img">
-                    <img class="char_avatar" :src="character.image">
-                    <img src="/rick_logo.png" alt="" class="emblem">
+    <div class="page_container">
+        <div class="first_page">
+            <div class="img">
+                <img class="char_avatar" :src="character.image">
+                <img src="/rick_logo.png" alt="" class="emblem">
+            </div>
+            <div class="char_info">
+                <div class="info_field">
+                    <p class="field_name">Surname</p>
+                    <p class="field_value">{{ character.name.split(' ').at(-1) }}</p>
                 </div>
-                <div class="char_info">
-                    <div class="info_field">
-                        <p class="field_name">Surname</p>
-                        <p class="field_value">{{ character.name.split(' ').at(-1) }}</p>
-                    </div>
-                    <div class="info_field">
-                        <p class="field_name">Name</p>
-                        <p class="field_value">{{ character.name.split(' ')[0] }}</p>
-                    </div>
-                    <div class="info_field">
-                        <p class="field_name">Patronymic</p>
-                        <p class="field_value">{{ character.name.split(' ').slice(1, -1).length ? character.name.split(' ').slice(1, -1).join(' ') : "empty" }}</p>
-                    </div>
-                    <div class="info_field">
-                        <p class="field_name">Type</p>
-                        <p class="field_value">{{ character.type || "A common man" }}</p>
-                    </div>
-                    <div class="info_field">
-                        <p class="field_name">Place of birth</p>
-                        <p class="field_value">{{ character?.origin.name === "unknown" ? "Somewhere" : character?.origin.name }}, Rick's universe</p>
-                    </div>
-                    <div class="info_field">
-                        <p class="field_name">Date of birth</p>
-                        <p class="field_value">{{ new Date(character.created).toLocaleDateString("en-US") }}</p>
-                    </div>
+                <div class="info_field">
+                    <p class="field_name">Name</p>
+                    <p class="field_value">{{ character.name.split(' ')[0] }}</p>
+                </div>
+                <div class="info_field">
+                    <p class="field_name">Patronymic</p>
+                    <p class="field_value">{{ character.name.split(' ').slice(1, -1).length ? character.name.split(' ').slice(1, -1).join(' ') : "empty" }}</p>
+                </div>
+                <div class="info_field">
+                    <p class="field_name">Type</p>
+                    <p class="field_value">{{ character.type || "A common man" }}</p>
+                </div>
+                <div class="info_field">
+                    <p class="field_name">Place of birth</p>
+                    <p class="field_value">{{ character?.origin.name === "unknown" ? "Somewhere" : character?.origin.name }}, Rick's universe</p>
+                </div>
+                <div class="info_field">
+                    <p class="field_name">Date of birth</p>
+                    <p class="field_value">{{ new Date(character.created).toLocaleDateString("en-US") }}</p>
                 </div>
             </div>
-            <hr>
-            <div class="second_page">
-                <h2>visas</h2>
-                <div class="episodes">
-                    <div class="episode" v-for="episode in episodes">
-                        <p class="episode_reason">
-                            Reason:
-                            {{ episode.name }}
-                        </p>
-                        <div class="episode_location">
-                            Location:
-                            {{ episode.episode }}
-                        </div>
+        </div>
+        <hr>
+        <div class="second_page">
+            <h2>visas</h2>
+            <div class="episodes">
+                <div class="episode" v-for="episode in episodes">
+                    <p class="episode_reason">
+                        Reason:
+                        {{ episode.name }}
+                    </p>
+                    <div class="episode_location">
+                        Location:
+                        {{ episode.episode }}
                     </div>
                 </div>
             </div>
         </div>
-    </NuxtLayout>
+    </div>
 </template>
 
 <style scoped lang="less">
